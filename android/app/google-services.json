@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "607178291215",
+    "project_id": "mynotestest-ebe78",
+    "storage_bucket": "mynotestest-ebe78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607178291215:android:e76b096d007239444ccb7a",
+        "android_client_info": {
+          "package_name": "com.myfaraday.mynotestest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607178291215-n3tqsh6mbgodd6ru2rpf8p0ac01makiv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9Bp0c6_pzgG8BTSveAsZunHC7_o3IddI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607178291215-n3tqsh6mbgodd6ru2rpf8p0ac01makiv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "607178291215-1sm0ssrav1emqtrte490n5sfpj7ue9oi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.myfaraday.mynotestest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

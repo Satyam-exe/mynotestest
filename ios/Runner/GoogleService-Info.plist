@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>607178291215-1sm0ssrav1emqtrte490n5sfpj7ue9oi.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.607178291215-1sm0ssrav1emqtrte490n5sfpj7ue9oi</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC4b8lvLwrsXISVGro2uQOgCQmYi3eyxS8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>607178291215</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.myfaraday.mynotestest</string>
+	<key>PROJECT_ID</key>
+	<string>mynotestest-ebe78</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mynotestest-ebe78.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:607178291215:ios:2b5819a97b623a9f4ccb7a</string>
+</dict>
+</plist>
