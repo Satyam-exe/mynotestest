@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,16 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCAcZaMLF2Xdkw6E_kmjITyEJCFJGnUsH4',
+    appId: '1:607178291215:web:4fff02886c76d85a4ccb7a',
+    messagingSenderId: '607178291215',
+    projectId: 'mynotestest-ebe78',
+    authDomain: 'mynotestest-ebe78.firebaseapp.com',
+    storageBucket: 'mynotestest-ebe78.appspot.com',
+    measurementId: 'G-ZSDNJ65VRX',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB9Bp0c6_pzgG8BTSveAsZunHC7_o3IddI',
     appId: '1:607178291215:android:e76b096d007239444ccb7a',
@@ -58,6 +62,16 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyC4b8lvLwrsXISVGro2uQOgCQmYi3eyxS8',
+    appId: '1:607178291215:ios:2b5819a97b623a9f4ccb7a',
+    messagingSenderId: '607178291215',
+    projectId: 'mynotestest-ebe78',
+    storageBucket: 'mynotestest-ebe78.appspot.com',
+    iosClientId: '607178291215-1sm0ssrav1emqtrte490n5sfpj7ue9oi.apps.googleusercontent.com',
+    iosBundleId: 'com.myfaraday.mynotestest',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyC4b8lvLwrsXISVGro2uQOgCQmYi3eyxS8',
     appId: '1:607178291215:ios:2b5819a97b623a9f4ccb7a',
     messagingSenderId: '607178291215',
