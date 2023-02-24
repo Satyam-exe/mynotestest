@@ -60,12 +60,13 @@ class _RegisterViewState extends State<RegisterView> {
               final email = _email.text;
               final password = _password.text;
               try {
-                final userCredential =
                   await FirebaseAuth.instance.createUserWithEmailAndPassword(
                     email: email,
                     password: password
-                );
-                devtools.log(userCredential.toString());
+                  );
+                  final user = FirebaseAuth.instance.currentUser;
+                  user?.sendEmailVerification();
+                  Navigator.of(context).pushNamed(verifyEmailRoute);
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'weak-password') {
                   await showErrorDialog(
@@ -82,6 +83,11 @@ class _RegisterViewState extends State<RegisterView> {
                   await showErrorDialog(
                       context,
                       'Please enter a valid email address.'
+                  );
+                } else if (e.toString() == '[firebase_auth/unknown] Given String is empty or null') {
+                  await showErrorDialog(
+                      context,
+                      'Please enter the required information to continue'
                   );
                 } else {
                   await showErrorDialog(
@@ -102,7 +108,7 @@ class _RegisterViewState extends State<RegisterView> {
             onPressed: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
                 loginRoute,
-                    (route) => false,
+                (route) => false,
               );
             },
             child: const Text('Already have an account? Login here!'),

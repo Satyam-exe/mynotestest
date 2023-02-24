@@ -66,8 +66,8 @@ class _LoginViewState extends State<LoginView> {
                     password: password
                 );
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                      notesRoute,
-                      (route) => false,
+                  notesRoute,
+                  (route) => false,
                 );
                 devtools.log(userCredential.toString());
               } on FirebaseAuthException catch (e) {
@@ -79,12 +79,22 @@ class _LoginViewState extends State<LoginView> {
                 } else if (e.code == 'wrong-password') {
                   await showErrorDialog(
                       context,
-                      'Invalid email or password'
+                      'Invalid credentials'
+                  );
+                } else if (e.code == 'invalid-email') {
+                  await showErrorDialog(
+                      context,
+                      'Please enter a valid email address'
+                  );
+                } else if (e.toString() == '[firebase_auth/unknown] Given String is empty or null') {
+                  await showErrorDialog(
+                      context,
+                      'Please enter the required information to continue'
                   );
                 } else {
                   await showErrorDialog(
                       context,
-                      'Error: ${e.code}'
+                      'Error: ${e.toString()}'
                   );
                 }
               } catch (e) {
@@ -100,7 +110,7 @@ class _LoginViewState extends State<LoginView> {
               onPressed: () {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                   registerRoute,
-                      (route) => false,
+                  (route) => false,
                 );
               },
               child: const Text('Not registered yet? Register here!'),
