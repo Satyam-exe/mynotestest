@@ -65,10 +65,18 @@ class _LoginViewState extends State<LoginView> {
                     email: email,
                     password: password
                 );
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  notesRoute,
-                  (route) => false,
-                );
+                final user = FirebaseAuth.instance.currentUser;
+                if (user?.emailVerified ?? false) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    notesRoute,
+                    (route) => false,
+                  );                  
+                } else {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    verifyEmailRoute, 
+                    (route) => false
+                  );
+                }
                 devtools.log(userCredential.toString());
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found'){
@@ -85,11 +93,6 @@ class _LoginViewState extends State<LoginView> {
                   await showErrorDialog(
                       context,
                       'Please enter a valid email address'
-                  );
-                } else if (e.toString() == '[firebase_auth/unknown] Given String is empty or null') {
-                  await showErrorDialog(
-                      context,
-                      'Please enter the required information to continue'
                   );
                 } else {
                   await showErrorDialog(

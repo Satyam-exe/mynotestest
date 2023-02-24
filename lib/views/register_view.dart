@@ -84,11 +84,6 @@ class _RegisterViewState extends State<RegisterView> {
                       context,
                       'Please enter a valid email address.'
                   );
-                } else if (e.toString() == '[firebase_auth/unknown] Given String is empty or null') {
-                  await showErrorDialog(
-                      context,
-                      'Please enter the required information to continue'
-                  );
                 } else {
                   await showErrorDialog(
                       context,
