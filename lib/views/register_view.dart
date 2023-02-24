@@ -1,3 +1,4 @@
+import 'dart:developer' as devtools;
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -62,14 +63,14 @@ class _RegisterViewState extends State<RegisterView> {
                     email: email,
                     password: password
                 );
-                print(userCredential);
+                devtools.log(userCredential.toString());
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'weak-password') {
-                  print('Please enter a strong password');
+                  devtools.log('Please enter a strong password');
                 } else if (e.code == 'email-already-in-use') {
-                  print('This email is already linked to a myFaraday Account. Please log in.');
+                  devtools.log('This email is already linked to a myFaraday Account. Please log in.');
                 } else if (e.code == 'invalid-email') {
-                  print('Invalid email entered');
+                  devtools.log('Invalid email entered');
                 }
               }
             },
