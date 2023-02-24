@@ -79,8 +79,8 @@ class _RegisterViewState extends State<RegisterView> {
           TextButton(
             onPressed: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/login/',
-                      (route) => false
+                    '/login/',
+                    (route) => false,
               );
             },
             child: const Text('Already have an account? Login here!'),
