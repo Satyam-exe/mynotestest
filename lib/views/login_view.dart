@@ -1,9 +1,9 @@
-import 'dart:developer' as devtools;
+import 'dart:developer' show log;
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mynotestest/constants/routes.dart';
-import '../utilities/show_error_dialog.dart';
-
+import 'package:mynotestest/services/auth/auth_exceptions.dart';
+import 'package:mynotestest/services/auth/auth_service.dart';
+import 'package:mynotestest/utilities/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -13,7 +13,6 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -34,7 +33,9 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login'),),
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
       body: Column(
         children: [
           TextField(
@@ -60,67 +61,56 @@ class _LoginViewState extends State<LoginView> {
               final email = _email.text;
               final password = _password.text;
               try {
-                final userCredential =
-                await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    email: email,
-                    password: password
+                final userCredential = await AuthService.firebase().logIn(
+                  email: email,
+                  password: password,
                 );
-                final user = FirebaseAuth.instance.currentUser;
-                if (user?.emailVerified ?? false) {
+                final user = AuthService.firebase().currentUser;
+                if (user?.isEmailVerified ?? false) {
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     notesRoute,
                     (route) => false,
-                  );                  
+                  );
                 } else {
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                    verifyEmailRoute, 
-                    (route) => false
-                  );
+                      verifyEmailRoute, (route) => false);
                 }
-                devtools.log(userCredential.toString());
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'user-not-found'){
-                  await showErrorDialog(
-                      context,
-                      'No account is associated with the provided email'
-                  );
-                } else if (e.code == 'wrong-password') {
-                  await showErrorDialog(
-                      context,
-                      'Invalid credentials'
-                  );
-                } else if (e.code == 'invalid-email') {
-                  await showErrorDialog(
-                      context,
-                      'Please enter a valid email address'
-                  );
-                } else {
-                  await showErrorDialog(
-                      context,
-                      'Error: ${e.toString()}'
-                  );
-                }
-              } catch (e) {
+                log(userCredential.toString());
+              } on UserNotFoundAuthException {
                 await showErrorDialog(
-                    context,
-                    e.toString()
+                  context,
+                  'No account is associated with the provided email',
+                );
+              } on WrongPasswordAuthException {
+                await showErrorDialog(
+                  context,
+                  'Invalid credentials',
+                );
+              } on InvalidEmailAuthException {
+                await showErrorDialog(
+                  context,
+                  'Please enter a valid email address',
+                );
+              } on GenericAuthException {
+                await showErrorDialog(
+                  context,
+                  'Authentication error',
                 );
               }
             },
             child: const Text('Login'),
           ),
           TextButton(
-              onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  registerRoute,
-                  (route) => false,
-                );
-              },
-              child: const Text('Not registered yet? Register here!'),
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                registerRoute,
+                (route) => false,
+              );
+            },
+            child: const Text('Not registered yet? Register here!'),
           )
         ],
       ),
     );
   }
 }
-
