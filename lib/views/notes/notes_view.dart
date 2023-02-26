@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mynotestest/constants/routes.dart';
 import 'package:mynotestest/enums/menu_action.dart';
-import 'package:mynotestest/main.dart';
 import 'package:mynotestest/services/auth/auth_service.dart';
 import 'package:mynotestest/services/crud/notes_service.dart';
 
@@ -33,8 +32,14 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Main UI'),
+        title: const Text('Your Notes'),
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(newNoteRoute);
+            },
+            icon: const Icon(Icons.add),
+          ),
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
               switch (value) {
@@ -87,4 +92,30 @@ class _NotesViewState extends State<NotesView> {
       ),
     );
   }
+}
+
+Future<bool> showLogOutDialog(BuildContext context) {
+  return showDialog<bool>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Sign out'),
+        content: const Text('Are you sure you want to sign out?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            },
+            child: const Text('Logout'),
+          )
+        ],
+      );
+    },
+  ).then((value) => value ?? false);
 }
